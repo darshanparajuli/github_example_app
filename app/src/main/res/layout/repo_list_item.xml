@@ -25,10 +25,9 @@
             android:layout_marginTop="2dp"
             android:textStyle="bold"
             android:drawablePadding="4dp"
-            android:drawableStart="@drawable/ic_star_black_24dp"
+            android:drawableStart="@drawable/tinted_star"
             android:gravity="center"
             android:layout_width="wrap_content"
-            android:drawableTint="@color/colorAccent"
             tools:text="1000"
             android:layout_height="wrap_content"/>
 
