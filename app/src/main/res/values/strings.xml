@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Github Example</string>
+    <string name="star_count_x">%d</string>
 </resources>
