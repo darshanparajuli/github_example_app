@@ -2,7 +2,6 @@ package com.dp.githubexample.activity.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dp.githubexample.R
+import com.dp.githubexample.util.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,15 +72,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     MainActivityViewModel.LoadStatus.FINISHED_ERROR -> {
                         swipeRefreshLayout.isRefreshing = false
-                        showErrorToast()
+                        this@MainActivity.toast(R.string.github_repos_fetch_error_message)
                     }
                 }
             }
         })
-    }
-
-    private fun showErrorToast() {
-        Toast.makeText(this, getString(R.string.github_repos_fetch_error_message), Toast.LENGTH_SHORT)
-            .show()
     }
 }
