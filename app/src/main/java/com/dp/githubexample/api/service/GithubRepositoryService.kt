@@ -12,6 +12,6 @@ interface GithubRepositoryService {
     @GET("/search/repositories?q=stars:>0&s=stars&o=desc&page=1&type=Repositories")
     suspend fun getReposWithMostStars(@Query("per_page") count: Int): Response<SearchResponse>
 
-    @GET("/repos/{full_name}/contributors")
-    suspend fun getContributors(@Path("full_name") repoFullName: String): Response<List<Contributor>>
+    @GET("/repos/{name_a}/{name_b}/contributors")
+    suspend fun getContributors(@Path("name_a") nameA: String, @Path("name_b") nameB: String): Response<List<Contributor>>
 }

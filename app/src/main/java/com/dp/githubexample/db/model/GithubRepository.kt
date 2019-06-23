@@ -2,9 +2,10 @@ package com.dp.githubexample.db.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "github_repositories")
+@Entity(tableName = "github_repositories", indices = [Index("id")])
 data class GithubRepository(
     @PrimaryKey
     @ColumnInfo(name = "id")

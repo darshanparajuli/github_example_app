@@ -11,19 +11,19 @@
     android:paddingBottom="8dp">
 
     <TextView
-        android:id="@+id/repoName"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/textPrimary"
         android:textSize="@dimen/repo_name_text_size"
-        tools:text="Some repo name" />
+        tools:text="username" />
 
     <TextView
-        android:id="@+id/starCount"
+        android:id="@+id/contributions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:drawableStart="@drawable/tinted_ic_star"
+        android:drawableStart="@drawable/tinted_ic_code"
         android:drawablePadding="4dp"
         android:gravity="center"
         android:textColor="@color/textSecondary"

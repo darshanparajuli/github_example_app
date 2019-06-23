@@ -15,7 +15,7 @@ import com.dp.githubexample.db.model.GithubRepository
  */
 typealias OnItemClickListener = (v: View) -> Unit
 
-class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClickListener) :
+internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClickListener) :
     PagedListAdapter<GithubRepository, MyRecyclerViewAdapter.MyViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,7 +31,7 @@ class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClickListener
         holder.bind(getItem(position)!!)
     }
 
-    class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    internal class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         private val context = v.context
 
         private val repoName: TextView = v.findViewById(R.id.repoName)

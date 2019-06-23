@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dp.githubexample.api.GithubApi
+import com.dp.githubexample.common.viewmodel.LoadStatus
 import com.dp.githubexample.db.MyDb
 import com.dp.githubexample.db.model.GithubRepository
 import com.dp.githubexample.util.ScopedAndroidViewModel
@@ -14,7 +15,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(application) {
+internal class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(application) {
 
     private lateinit var mostStarredRepositoriesLiveData: LiveData<PagedList<GithubRepository>>
     private var fetchJob: Job? = null
@@ -51,16 +52,16 @@ class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(a
                     if (deleteTableFirst) {
                         dao.deleteAllAndInsertGithubRepositories(repos)
                     } else {
-                        dao.insertGithubRepositories(repos)
+                        dao.insert(repos)
                     }
-                    loadStatus.postValue(LoadStatus.FINISHED_SUCCES)
+                    loadStatus.postValue(LoadStatus.DONE_SUCCESS)
                 } else {
                     Log.e(TAG, "Request FAILED, status code: ${response.code()}, body: $body")
-                    loadStatus.postValue(LoadStatus.FINISHED_ERROR)
+                    loadStatus.postValue(LoadStatus.DONE_ERROR)
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Request FAILED, with exception", e)
-                loadStatus.postValue(LoadStatus.FINISHED_ERROR)
+                loadStatus.postValue(LoadStatus.DONE_ERROR)
             }
         }
     }
@@ -96,12 +97,6 @@ class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(a
     }
 
     fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
-
-    enum class LoadStatus {
-        LOADING,
-        FINISHED_SUCCES,
-        FINISHED_ERROR,
-    }
 
     companion object {
         private const val TAG = "MainActivityViewModel"

@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dp.githubexample.R
 import com.dp.githubexample.activity.BaseActivityWithToolbar
 import com.dp.githubexample.activity.contributors.ContributorsActivity
+import com.dp.githubexample.common.viewmodel.LoadStatus
 import com.dp.githubexample.util.toast
 
 class MainActivity : BaseActivityWithToolbar() {
@@ -54,10 +55,11 @@ class MainActivity : BaseActivityWithToolbar() {
             return
         }
 
-        val repoName = adapter.currentList?.get(pos)?.fullName ?: return
+        val repo = adapter.currentList?.get(pos) ?: return
 
         val intent = Intent(this, ContributorsActivity::class.java)
-        intent.putExtra(ContributorsActivity.EXTRA_REPO_NAME, repoName)
+        intent.putExtra(ContributorsActivity.EXTRA_REPO_ID, repo.id)
+        intent.putExtra(ContributorsActivity.EXTRA_REPO_NAME, repo.fullName)
         startActivity(intent)
     }
 
@@ -74,13 +76,13 @@ class MainActivity : BaseActivityWithToolbar() {
         viewModel.getLoadStatus().observe(this, Observer {
             if (it != null) {
                 when (it) {
-                    MainActivityViewModel.LoadStatus.LOADING -> {
+                    LoadStatus.LOADING -> {
                         swipeRefreshLayout.isRefreshing = true
                     }
-                    MainActivityViewModel.LoadStatus.FINISHED_SUCCES -> {
+                    LoadStatus.DONE_SUCCESS -> {
                         swipeRefreshLayout.isRefreshing = false
                     }
-                    MainActivityViewModel.LoadStatus.FINISHED_ERROR -> {
+                    LoadStatus.DONE_ERROR -> {
                         swipeRefreshLayout.isRefreshing = false
                         this@MainActivity.toast(R.string.github_repos_fetch_error_message)
                     }
