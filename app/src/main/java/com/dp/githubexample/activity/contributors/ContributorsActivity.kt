@@ -21,6 +21,6 @@ class ContributorsActivity : AppCompatActivity() {
     }
 
     companion object {
-        val EXTRA_REPO_NAME = "repo_name"
+        const val EXTRA_REPO_NAME = "repo_name"
     }
 }
