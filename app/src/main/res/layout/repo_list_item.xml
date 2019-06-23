@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:drawableStart="@drawable/tinted_ic_bug"
+        android:drawableStart="@drawable/tinted_ic_open_issues"
         android:drawablePadding="4dp"
         android:gravity="center_vertical"
         android:textColor="@color/textSecondary"
