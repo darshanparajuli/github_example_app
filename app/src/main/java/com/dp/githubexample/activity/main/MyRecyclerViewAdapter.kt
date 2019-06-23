@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -35,11 +36,19 @@ internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClic
         private val context = v.context
 
         private val repoName: TextView = v.findViewById(R.id.repoName)
+        private val description: TextView = v.findViewById(R.id.description)
         private val starCount: TextView = v.findViewById(R.id.starCount)
 
         fun bind(repo: GithubRepository) {
             repoName.text = repo.fullName
             starCount.text = context.getString(R.string.star_count_x, repo.starCount)
+
+            if (repo.description != null) {
+                description.text = repo.description
+                description.isVisible = true
+            } else {
+                description.isVisible = false
+            }
         }
     }
 
