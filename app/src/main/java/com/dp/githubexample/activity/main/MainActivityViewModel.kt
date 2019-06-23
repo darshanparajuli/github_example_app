@@ -6,24 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.dp.githubexample.api.service.GithubService
+import com.dp.githubexample.api.GithubApi
 import com.dp.githubexample.db.MyDb
 import com.dp.githubexample.db.model.GithubRepository
 import com.dp.githubexample.util.ScopedAndroidViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(application) {
-
-    private val githubService = Retrofit.Builder()
-        .baseUrl(GITHUB_API_BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build().run {
-            create(GithubService::class.java)
-        }
 
     private lateinit var mostStarredRepositoriesLiveData: LiveData<PagedList<GithubRepository>>
     private var fetchJob: Job? = null
@@ -45,7 +36,7 @@ class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(a
         fetchJob?.cancel()
         fetchJob = launch(IO) {
             try {
-                val response = githubService.getReposWithMostStars(100 /* get top 100 */)
+                val response = GithubApi.repositoryService.getReposWithMostStars(100 /* get top 100 */)
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
                     Log.d(TAG, "Request successful, status code: ${response.code()}")
@@ -114,6 +105,5 @@ class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(a
 
     companion object {
         private const val TAG = "MainActivityViewModel"
-        private const val GITHUB_API_BASE_URL = "https://api.github.com"
     }
 }
