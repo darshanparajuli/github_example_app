@@ -21,5 +21,11 @@ data class GithubRepository(
     val description: String?,
 
     @ColumnInfo(name = "star_count")
-    val starCount: Int
+    val starCount: Int,
+
+    @ColumnInfo(name = "open_issues_count")
+    val openIssuesCount: Int,
+
+    @ColumnInfo(name = "forks_count")
+    val forksCount: Int
 )

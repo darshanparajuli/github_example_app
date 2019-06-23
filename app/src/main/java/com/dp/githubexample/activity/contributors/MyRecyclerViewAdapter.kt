@@ -40,7 +40,7 @@ internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClic
 
         fun bind(contributor: Contributor) {
             username.text = contributor.username
-            contributions.text = context.getString(R.string.contributions_x, contributor.contributions)
+            contributions.text = context.getString(R.string.integer_x, contributor.contributions)
 
             if (contributor.avatarUrl != null) {
                 Picasso.get()

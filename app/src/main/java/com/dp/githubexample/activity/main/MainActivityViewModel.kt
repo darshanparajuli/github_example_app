@@ -43,7 +43,15 @@ internal class MainActivityViewModel(application: Application) : ScopedAndroidVi
                     Log.d(TAG, "Request successful, status code: ${response.code()}")
 
                     val repos = body.items.map {
-                        GithubRepository(it.id, it.name, it.fullName, it.description, it.starCount)
+                        GithubRepository(
+                            it.id,
+                            it.name,
+                            it.fullName,
+                            it.description,
+                            it.starCount,
+                            it.openIssuesCount,
+                            it.forksCount
+                        )
                     }
 
                     val db = MyDb.getInstance(context)

@@ -38,10 +38,14 @@ internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClic
         private val repoName: TextView = v.findViewById(R.id.repoName)
         private val description: TextView = v.findViewById(R.id.description)
         private val starCount: TextView = v.findViewById(R.id.starCount)
+        private val forks: TextView = v.findViewById(R.id.forksCount)
+        private val openIssues: TextView = v.findViewById(R.id.openIssuesCount)
 
         fun bind(repo: GithubRepository) {
             repoName.text = repo.fullName
-            starCount.text = context.getString(R.string.star_count_x, repo.starCount)
+            starCount.text = context.getString(R.string.integer_x, repo.starCount)
+            forks.text = context.getString(R.string.integer_x, repo.forksCount)
+            openIssues.text = context.getString(R.string.integer_x, repo.openIssuesCount)
 
             if (repo.description != null) {
                 description.text = repo.description
