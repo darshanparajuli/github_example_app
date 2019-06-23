@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dp.githubexample.R
 import com.dp.githubexample.db.model.Contributor
-import com.dp.githubexample.util.CirculeImageTransformation
+import com.dp.githubexample.util.CircularImageTransformation
 import com.squareup.picasso.Picasso
 
 typealias OnItemClickListener = (v: View) -> Unit
@@ -48,7 +48,7 @@ internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClic
                     .fit()
                     .centerCrop()
                     .placeholder(R.drawable.tinted_ic_avatar_placeholder)
-                    .transform(CirculeImageTransformation(contributor.avatarUrl))
+                    .transform(CircularImageTransformation(contributor.avatarUrl))
                     .into(avatar)
             } else {
                 avatar.background = ContextCompat.getDrawable(context, R.drawable.tinted_ic_avatar_placeholder)
