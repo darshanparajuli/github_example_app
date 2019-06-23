@@ -10,10 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dp.githubexample.R
 import com.dp.githubexample.db.model.Contributor
 
-internal class MyRecyclerViewAdapter : PagedListAdapter<Contributor, MyRecyclerViewAdapter.MyViewHolder>(diffCallback) {
+typealias OnItemClickListener = (v: View) -> Unit
+
+internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClickListener) :
+    PagedListAdapter<Contributor, MyRecyclerViewAdapter.MyViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.contributor_list_item, parent, false)
+        view.setOnClickListener {
+            onItemClickListener(it)
+        }
         return MyViewHolder(view)
     }
 

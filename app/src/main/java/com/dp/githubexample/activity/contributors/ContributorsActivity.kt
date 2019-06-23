@@ -1,6 +1,10 @@
 package com.dp.githubexample.activity.contributors
 
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,6 +16,7 @@ import com.dp.githubexample.activity.BaseActivityWithToolbar
 import com.dp.githubexample.common.viewmodel.LoadStatus
 import com.dp.githubexample.util.toast
 
+
 class ContributorsActivity : BaseActivityWithToolbar() {
 
     private var repoId: Int = -1
@@ -20,6 +25,7 @@ class ContributorsActivity : BaseActivityWithToolbar() {
     private lateinit var adapter: MyRecyclerViewAdapter
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var viewModel: ContributorsActivityViewModel
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +54,32 @@ class ContributorsActivity : BaseActivityWithToolbar() {
         setupViewModel()
     }
 
+    private fun itemClickHandler(v: View) {
+        val pos = linearLayoutManager.getPosition(v)
+        if (pos == RecyclerView.NO_POSITION) {
+            return
+        }
+
+        val contributor = adapter.currentList?.get(pos) ?: return
+
+        val intent = CustomTabsIntent.Builder()
+            .setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            .setShowTitle(true)
+            .build()
+        intent.launchUrl(this, Uri.parse("https://github.com/${contributor.username}"))
+    }
+
     private fun setupView() {
         setupToolbar(R.id.toolbar)
         enableDisplayHomeAsUp()
         toolbar.subtitle = repoName
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this).also {
+            linearLayoutManager = it
+        }
         recyclerView.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
-        recyclerView.adapter = MyRecyclerViewAdapter().also {
+        recyclerView.adapter = MyRecyclerViewAdapter(this::itemClickHandler).also {
             adapter = it
         }
 
