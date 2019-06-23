@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,10 +10,23 @@
     android:paddingRight="16dp"
     android:paddingBottom="8dp">
 
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/avatar_content_desc"
+        android:src="@drawable/tinted_ic_avatar_placeholder" />
+
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/avatar"
         android:textColor="@color/textPrimary"
         android:textSize="@dimen/repo_name_text_size"
         tools:text="username" />
@@ -22,7 +35,9 @@
         android:id="@+id/contributions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/username"
         android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/avatar"
         android:drawableStart="@drawable/tinted_ic_code"
         android:drawablePadding="4dp"
         android:gravity="center"
@@ -31,4 +46,4 @@
         android:textStyle="bold"
         tools:text="1000" />
 
-</LinearLayout>
+</RelativeLayout>
