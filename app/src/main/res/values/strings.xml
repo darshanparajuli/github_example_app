@@ -8,4 +8,5 @@
     <string name="invalid_repo_id">Invalid repo id</string>
     <string name="error_fetching_contributors">Error fetching contributors</string>
     <string name="avatar_content_desc">Avatar</string>
+    <string name="username_with_name">%s (%s)</string>
 </resources>
