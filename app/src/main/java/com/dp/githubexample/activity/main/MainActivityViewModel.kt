@@ -46,11 +46,14 @@ internal class MainActivityViewModel(application: Application) : ScopedAndroidVi
                         GithubRepository(it.id, it.name, it.fullName, it.description, it.starCount)
                     }
 
-                    val dao = MyDb.getInstance(context)
-                        .githubRepositoryDao()
+                    val db = MyDb.getInstance(context)
+                    val dao = db.githubRepositoryDao()
 
                     if (deleteTableFirst) {
-                        dao.deleteAllAndInsertGithubRepositories(repos)
+                        db.runInTransaction {
+                            db.contributorDao().deleteAll()
+                            dao.deleteAllAndInsertGithubRepositories(repos)
+                        }
                     } else {
                         dao.insert(repos)
                     }

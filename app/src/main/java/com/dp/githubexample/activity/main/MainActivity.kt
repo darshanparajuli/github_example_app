@@ -17,7 +17,6 @@ import com.dp.githubexample.util.toast
 
 class MainActivity : BaseActivityWithToolbar() {
 
-
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: MyRecyclerViewAdapter
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
