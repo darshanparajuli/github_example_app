@@ -1,14 +1,8 @@
 package com.dp.githubexample.db.model
 
-import androidx.room.*
+import androidx.room.ColumnInfo
 
-@Entity(
-    tableName = "contributors",
-    indices = [Index("id"), Index("repo_id")],
-    foreignKeys = [ForeignKey(entity = GithubRepository::class, parentColumns = ["id"], childColumns = ["repo_id"])]
-)
-data class Contributor(
-    @PrimaryKey
+data class ContributorInfo(
     @ColumnInfo(name = "id")
     val id: Int,
 
@@ -20,6 +14,18 @@ data class Contributor(
 
     @ColumnInfo(name = "contributions")
     val contributions: Int,
+
+    @ColumnInfo(name = "bio")
+    val bio: String?,
+
+    @ColumnInfo(name = "name")
+    val name: String?,
+
+    @ColumnInfo(name = "public_repos")
+    val publicRepos: Int,
+
+    @ColumnInfo(name = "followers")
+    val followers: Int,
 
     @ColumnInfo(name = "repo_id")
     val repoId: Int

@@ -10,14 +10,14 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dp.githubexample.R
-import com.dp.githubexample.db.model.Contributor
+import com.dp.githubexample.db.model.ContributorInfo
 import com.dp.githubexample.util.CircularImageTransformation
 import com.squareup.picasso.Picasso
 
 typealias OnItemClickListener = (v: View) -> Unit
 
 internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClickListener) :
-    PagedListAdapter<Contributor, MyRecyclerViewAdapter.MyViewHolder>(diffCallback) {
+    PagedListAdapter<ContributorInfo, MyRecyclerViewAdapter.MyViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.contributor_list_item, parent, false)
@@ -38,7 +38,7 @@ internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClic
         private val username: TextView = v.findViewById(R.id.username)
         private val contributions: TextView = v.findViewById(R.id.contributions)
 
-        fun bind(contributor: Contributor) {
+        fun bind(contributor: ContributorInfo) {
             username.text = contributor.username
             contributions.text = context.getString(R.string.integer_x, contributor.contributions)
 
@@ -57,12 +57,12 @@ internal class MyRecyclerViewAdapter(private val onItemClickListener: OnItemClic
     }
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<Contributor>() {
-            override fun areItemsTheSame(oldItem: Contributor, newItem: Contributor): Boolean {
+        private val diffCallback = object : DiffUtil.ItemCallback<ContributorInfo>() {
+            override fun areItemsTheSame(oldItem: ContributorInfo, newItem: ContributorInfo): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Contributor, newItem: Contributor): Boolean {
+            override fun areContentsTheSame(oldItem: ContributorInfo, newItem: ContributorInfo): Boolean {
                 return oldItem == newItem
             }
         }

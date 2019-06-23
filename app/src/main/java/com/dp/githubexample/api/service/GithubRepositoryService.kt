@@ -2,6 +2,7 @@ package com.dp.githubexample.api.service
 
 import com.dp.githubexample.api.model.Contributor
 import com.dp.githubexample.api.model.SearchResponse
+import com.dp.githubexample.api.model.User
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,4 +15,7 @@ interface GithubRepositoryService {
 
     @GET("/repos/{name_a}/{name_b}/contributors")
     suspend fun getContributors(@Path("name_a") nameA: String, @Path("name_b") nameB: String): Response<List<Contributor>>
+
+    @GET("/users/{username}")
+    suspend fun getUser(@Path("username") username: String): Response<User>
 }

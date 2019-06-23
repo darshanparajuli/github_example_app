@@ -7,15 +7,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.dp.githubexample.db.dao.ContributorDao
 import com.dp.githubexample.db.dao.GithubRepositoryDao
+import com.dp.githubexample.db.dao.UserDao
 import com.dp.githubexample.db.model.Contributor
 import com.dp.githubexample.db.model.GithubRepository
+import com.dp.githubexample.db.model.User
 
-@Database(entities = [GithubRepository::class, Contributor::class], version = 1, exportSchema = false)
+@Database(entities = [GithubRepository::class, Contributor::class, User::class], version = 1, exportSchema = false)
 abstract class MyDb : RoomDatabase() {
 
     abstract fun githubRepositoryDao(): GithubRepositoryDao
 
     abstract fun contributorDao(): ContributorDao
+
+    abstract fun userDao(): UserDao
 
     companion object {
         private const val DB_NAME = "my_db"
@@ -38,8 +42,8 @@ abstract class MyDb : RoomDatabase() {
                     DB_NAME
                 ).build()
                     .apply {
-                    instance = this
-                }
+                        instance = this
+                    }
             }
         }
     }
