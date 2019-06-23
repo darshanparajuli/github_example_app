@@ -1,5 +1,6 @@
 package com.dp.githubexample.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dp.githubexample.R
+import com.dp.githubexample.activity.contributors.ContributorsActivity
 import com.dp.githubexample.util.toast
 
 class MainActivity : AppCompatActivity() {
@@ -49,6 +51,12 @@ class MainActivity : AppCompatActivity() {
         if (pos == RecyclerView.NO_POSITION) {
             return
         }
+
+        val repoName = adapter.currentList?.get(pos)?.fullName ?: return
+
+        val intent = Intent(this, ContributorsActivity::class.java)
+        intent.putExtra(ContributorsActivity.EXTRA_REPO_NAME, repoName)
+        startActivity(intent)
     }
 
     private fun setupViewModel() {

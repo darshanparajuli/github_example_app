@@ -2,4 +2,6 @@
     <string name="app_name">Github Example</string>
     <string name="star_count_x">%d</string>
     <string name="github_repos_fetch_error_message">Unable to fetch Github repos</string>
+    <string name="invalid_repo_name">Invalid repo name</string>
+    <string name="contributors">Contributors</string>
 </resources>
