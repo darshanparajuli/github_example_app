@@ -9,4 +9,7 @@
     <string name="error_fetching_contributors">Error fetching contributors</string>
     <string name="avatar_content_desc">Avatar</string>
     <string name="username_with_name">%s (%s)</string>
+    <string name="login">Login</string>
+    <string name="success">Success</string>
+    <string name="invalid_token">Invalid token</string>
 </resources>
