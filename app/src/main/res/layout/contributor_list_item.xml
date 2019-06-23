@@ -28,7 +28,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/avatar"
         android:textColor="@color/textPrimary"
-        android:textSize="@dimen/repo_name_text_size"
+        android:textSize="@dimen/list_item_title"
         tools:text="username" />
 
     <TextView
@@ -42,8 +42,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:textColor="@color/textSecondary"
-        android:textSize="@dimen/start_count_text_size"
-        android:textStyle="bold"
+        android:textSize="@dimen/list_item_body"
         tools:text="1000" />
 
 </RelativeLayout>
