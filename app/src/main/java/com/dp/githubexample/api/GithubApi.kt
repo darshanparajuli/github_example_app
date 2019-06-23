@@ -12,5 +12,5 @@ object GithubApi {
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
-    val repositoryService = retrofit.create(GithubRepositoryService::class.java)
+    val repositoryService: GithubRepositoryService = retrofit.create(GithubRepositoryService::class.java)
 }
