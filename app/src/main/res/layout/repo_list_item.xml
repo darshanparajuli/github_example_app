@@ -44,7 +44,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:textColor="@color/textSecondary"
-        android:textSize="@dimen/list_item_body2"
+        android:textSize="@dimen/list_item_body"
         android:textStyle="bold"
         tools:text="1000" />
 
