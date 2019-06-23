@@ -3,7 +3,6 @@ package com.dp.githubexample.activity.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,10 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dp.githubexample.R
+import com.dp.githubexample.activity.BaseActivityWithToolbar
 import com.dp.githubexample.activity.contributors.ContributorsActivity
 import com.dp.githubexample.util.toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivityWithToolbar() {
+
 
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: MyRecyclerViewAdapter
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupToolbar(R.id.toolbar)
         setupViews()
         setupViewModel()
     }

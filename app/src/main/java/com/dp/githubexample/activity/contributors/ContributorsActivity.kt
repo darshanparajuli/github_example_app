@@ -1,14 +1,15 @@
 package com.dp.githubexample.activity.contributors
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.dp.githubexample.R
+import com.dp.githubexample.activity.BaseActivityWithToolbar
 import com.dp.githubexample.util.toast
 
-class ContributorsActivity : AppCompatActivity() {
+class ContributorsActivity : BaseActivityWithToolbar() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_contributors)
 
         val repoName = intent.getStringExtra(EXTRA_REPO_NAME)
         if (repoName.isNullOrBlank()) {
@@ -17,7 +18,9 @@ class ContributorsActivity : AppCompatActivity() {
             return
         }
 
-        supportActionBar?.subtitle = repoName
+        setupToolbar(R.id.toolbar)
+        enableDisplayHomeAsUp()
+        toolbar.subtitle = repoName
     }
 
     companion object {
