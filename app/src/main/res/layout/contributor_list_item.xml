@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="4dp"
         android:layout_toEndOf="@id/avatar"
         android:drawableStart="@drawable/tinted_ic_code"
         android:drawablePadding="4dp"
