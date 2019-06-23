@@ -1,10 +1,7 @@
 package com.dp.githubexample.db.dao
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dp.githubexample.db.model.GithubRepository
 
 @Dao
@@ -15,4 +12,16 @@ interface GithubRepositoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGithubRepositories(repos: List<GithubRepository>)
+
+    @Query("delete from github_repositories")
+    fun deleteAll()
+
+    @Transaction
+    fun deleteAllAndInsertGithubRepositories(repos: List<GithubRepository>) {
+        deleteAll()
+        insertGithubRepositories(repos)
+    }
+
+    @Query("select COUNT(*) from github_repositories")
+    fun getCount(): Int
 }

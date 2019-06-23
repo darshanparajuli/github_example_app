@@ -2,6 +2,7 @@ package com.dp.githubexample.activity.main
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,8 +38,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-        // start with refreshing state
-        swipeRefreshLayout.isRefreshing = true
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
@@ -59,9 +58,29 @@ class MainActivity : AppCompatActivity() {
         // Observe the data for most star repos
         viewModel.getMostStarredRepositories().observe(this, Observer {
             adapter.submitList(it)
-
-            // Once we have the list, set refreshing state to false.
-            swipeRefreshLayout.isRefreshing = false
         })
+
+        // Observe load status
+        viewModel.getLoadStatus().observe(this, Observer {
+            if (it != null) {
+                when (it) {
+                    MainActivityViewModel.LoadStatus.LOADING -> {
+                        swipeRefreshLayout.isRefreshing = true
+                    }
+                    MainActivityViewModel.LoadStatus.FINISHED_SUCCES -> {
+                        swipeRefreshLayout.isRefreshing = false
+                    }
+                    MainActivityViewModel.LoadStatus.FINISHED_ERROR -> {
+                        swipeRefreshLayout.isRefreshing = false
+                        showErrorToast()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun showErrorToast() {
+        Toast.makeText(this, getString(R.string.github_repos_fetch_error_message), Toast.LENGTH_SHORT)
+            .show()
     }
 }

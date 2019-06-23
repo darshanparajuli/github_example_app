@@ -3,6 +3,7 @@ package com.dp.githubexample.activity.main
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dp.githubexample.api.service.GithubService
@@ -25,36 +26,60 @@ class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(a
         }
 
     private lateinit var mostStarredRepositoriesLiveData: LiveData<PagedList<GithubRepository>>
-    private var refreshJob: Job? = null
+    private var fetchJob: Job? = null
+
+    private val loadStatus = MutableLiveData<LoadStatus>()
 
     private val boundaryCallback = object : PagedList.BoundaryCallback<GithubRepository>() {
         override fun onZeroItemsLoaded() {
-            refresh()
+            // This is show the loading indicator
+            loadStatus.value = LoadStatus.LOADING
+            fetchRepos()
         }
 
         override fun onItemAtEndLoaded(itemAtEnd: GithubRepository) {
         }
     }
 
-    fun refresh() {
-        refreshJob?.cancel()
-        refreshJob = launch(IO) {
-            val response = githubService.getReposWithMostStars(100 /* get top 100 */)
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
-                Log.d(TAG, "Request successful, status code: ${response.code()}")
+    private fun fetchRepos(deleteTableFirst: Boolean = false) {
+        fetchJob?.cancel()
+        fetchJob = launch(IO) {
+            try {
+                val response = githubService.getReposWithMostStars(100 /* get top 100 */)
+                val body = response.body()
+                if (response.isSuccessful && body != null) {
+                    Log.d(TAG, "Request successful, status code: ${response.code()}")
 
-                val repos = body.items.map {
-                    GithubRepository(it.id, it.name, it.fullName, it.description, it.starCount)
+                    val repos = body.items.map {
+                        GithubRepository(it.id, it.name, it.fullName, it.description, it.starCount)
+                    }
+
+                    val dao = MyDb.getInstance(context)
+                        .githubRepositoryDao()
+
+                    if (deleteTableFirst) {
+                        dao.deleteAllAndInsertGithubRepositories(repos)
+                    } else {
+                        dao.insertGithubRepositories(repos)
+                    }
+                    loadStatus.postValue(LoadStatus.FINISHED_SUCCES)
+                } else {
+                    Log.e(TAG, "Request FAILED, status code: ${response.code()}, body: $body")
+                    loadStatus.postValue(LoadStatus.FINISHED_ERROR)
                 }
-
-                MyDb.getInstance(context)
-                    .githubRepositoryDao()
-                    .insertGithubRepositories(repos)
-            } else {
-                Log.e(TAG, "Request FAIL, status code: ${response.code()}, body: $body")
+            } catch (e: Exception) {
+                Log.e(TAG, "Request FAILED, with exception", e)
+                loadStatus.postValue(LoadStatus.FINISHED_ERROR)
             }
         }
+    }
+
+    fun refresh() {
+        // This is to show the loading indicator
+        loadStatus.value = LoadStatus.LOADING
+
+        // This is for swipe-to-refresh action; delete existing data before adding new data
+        fetchRepos(deleteTableFirst = true)
     }
 
     fun getMostStarredRepositories(): LiveData<PagedList<GithubRepository>> {
@@ -77,6 +102,14 @@ class MainActivityViewModel(application: Application) : ScopedAndroidViewModel(a
             .build()
 
         return mostStarredRepositoriesLiveData
+    }
+
+    fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
+
+    enum class LoadStatus {
+        LOADING,
+        FINISHED_SUCCES,
+        FINISHED_ERROR,
     }
 
     companion object {
