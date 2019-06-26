@@ -12,6 +12,12 @@ interface UserDao {
     @Query("delete from users")
     fun deleteAll()
 
+    @Query("select * from users where users.id = :id")
+    fun findUserById(id: Int): User?
+
+    @Query("select count(*) from users")
+    fun getCount(): Int
+
     @Transaction
     fun deleteAllAndInsert(users: List<User>) {
         deleteAll()

@@ -40,7 +40,7 @@ internal class ContributorsActivityViewModel(application: Application) : ScopedA
 
         val factory = MyDb.getInstance(context)
             .contributorDao()
-            .getTopContributors(repoId)
+            .getTopContributorsPaged(repoId)
         contributorsLiveData = LivePagedListBuilder(factory, config)
             .setBoundaryCallback(object : PagedList.BoundaryCallback<ContributorInfo>() {
                 override fun onZeroItemsLoaded() {

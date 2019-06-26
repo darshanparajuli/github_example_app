@@ -10,8 +10,11 @@ interface GithubRepositoryDao {
     @Query("select * from github_repositories where github_repositories.id = :id")
     fun getRepoById(id: Int): GithubRepository?
 
-    @Query("select * from github_repositories order by github_repositories.star_count desc")
+    @Query(MOST_STARRED_QUERY)
     fun getMostStarredReposPaged(): DataSource.Factory<Int, GithubRepository>
+
+    @Query(MOST_STARRED_QUERY)
+    fun getMostStarredRepos(): List<GithubRepository>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(repos: List<GithubRepository>)
@@ -25,6 +28,11 @@ interface GithubRepositoryDao {
         insert(repos)
     }
 
-    @Query("select COUNT(*) from github_repositories")
+    @Query("select count(*) from github_repositories")
     fun getCount(): Int
+
+    companion object {
+        private const val MOST_STARRED_QUERY =
+            "select * from github_repositories order by github_repositories.star_count desc"
+    }
 }
