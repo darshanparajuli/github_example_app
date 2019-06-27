@@ -2,6 +2,9 @@ package com.dp.githubexample.api.model
 
 import com.squareup.moshi.Json
 
+/**
+ * Data model used for fetching github repo info from the api.
+ */
 data class GithubRepository(
     @field:Json(name = "id") val id: Int,
     @field:Json(name = "name") val name: String,

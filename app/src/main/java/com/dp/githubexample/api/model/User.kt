@@ -2,6 +2,9 @@ package com.dp.githubexample.api.model
 
 import com.squareup.moshi.Json
 
+/**
+ * Data model used for fetching user info from the api.
+ */
 data class User(
     @field:Json(name = "id")
     val id: Int,

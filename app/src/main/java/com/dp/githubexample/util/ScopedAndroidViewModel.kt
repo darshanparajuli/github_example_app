@@ -7,6 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * ViewModel class used for facilitating proper scope to the couroutines are used.
+ */
 open class ScopedAndroidViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
 
     protected val context = application

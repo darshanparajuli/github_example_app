@@ -3,6 +3,9 @@ package com.dp.githubexample.util
 import android.graphics.*
 import com.squareup.picasso.Transformation
 
+/**
+ * Transformation used by Picasso to create circular images.
+ */
 class CircularImageTransformation(private val key: String) : Transformation {
 
     override fun key() = key

@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+/**
+ * Data model used for storing github repository information on the database.
+ */
 @Entity(tableName = "github_repositories", indices = [Index("id")])
 data class GithubRepository(
     @PrimaryKey

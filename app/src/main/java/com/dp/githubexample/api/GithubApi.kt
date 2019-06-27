@@ -2,10 +2,15 @@ package com.dp.githubexample.api
 
 import com.dp.githubexample.BuildConfig
 import com.dp.githubexample.api.service.GithubRepositoryService
+import com.dp.githubexample.api.service.SearchService
+import com.dp.githubexample.api.service.UserService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+/**
+ * Github api singleton is a one-stop shop for all github api related functions.
+ */
 object GithubApi {
     private const val GITHUB_API_BASE_URL = "https://api.github.com"
 
@@ -29,4 +34,8 @@ object GithubApi {
         .build()
 
     val repositoryService: GithubRepositoryService = retrofit.create(GithubRepositoryService::class.java)
+
+    val userService: UserService = retrofit.create(UserService::class.java)
+
+    val searchService: SearchService = retrofit.create(SearchService::class.java)
 }

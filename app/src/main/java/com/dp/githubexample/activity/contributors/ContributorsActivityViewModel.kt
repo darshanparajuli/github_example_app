@@ -100,7 +100,7 @@ internal class ContributorsActivityViewModel(application: Application) : ScopedA
 
         for (c in contributors) {
             users += async(IO) {
-                val res = GithubApi.repositoryService.getUser(c.username)
+                val res = GithubApi.userService.getUser(c.username)
                 val body = res.body()
                 if (res.isSuccessful && body != null) {
                     Log.d(TAG, "Request successful (user), status code: ${res.code()}")

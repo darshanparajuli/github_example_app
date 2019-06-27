@@ -2,6 +2,9 @@ package com.dp.githubexample.db.model
 
 import androidx.room.ColumnInfo
 
+/**
+ * Data model used for fetching contributor information from the database.
+ */
 data class ContributorInfo(
     @ColumnInfo(name = "id")
     val id: Int,

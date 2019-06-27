@@ -40,10 +40,9 @@ abstract class MyDb : RoomDatabase() {
                     context.applicationContext,
                     MyDb::class.java,
                     DB_NAME
-                ).build()
-                    .apply {
-                        instance = this
-                    }
+                ).build().apply {
+                    instance = this
+                }
             }
         }
     }

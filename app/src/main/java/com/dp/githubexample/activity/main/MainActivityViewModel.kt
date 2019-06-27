@@ -37,7 +37,7 @@ internal class MainActivityViewModel(application: Application) : ScopedAndroidVi
         fetchJob?.cancel()
         fetchJob = launch(IO) {
             try {
-                val response = GithubApi.repositoryService.getReposWithMostStars(100 /* get top 100 */)
+                val response = GithubApi.searchService.getReposWithMostStars(100 /* get top 100 */)
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
                     Log.d(TAG, "Request successful, status code: ${response.code()}")

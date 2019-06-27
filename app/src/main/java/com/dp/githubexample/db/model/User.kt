@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+/**
+ * Data model used for storing user information.
+ */
 @Entity(tableName = "users", indices = [Index("id")])
 data class User(
     @PrimaryKey

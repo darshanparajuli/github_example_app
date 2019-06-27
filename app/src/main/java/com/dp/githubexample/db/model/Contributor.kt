@@ -2,6 +2,9 @@ package com.dp.githubexample.db.model
 
 import androidx.room.*
 
+/**
+ * Data model for storing contributor information.
+ */
 @Entity(
     tableName = "contributors",
     indices = [Index("id"), Index("repo_id")],
