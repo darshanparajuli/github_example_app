@@ -33,6 +33,10 @@ internal class MainActivityViewModel(application: Application) : ScopedAndroidVi
         }
     }
 
+    /**
+     * @param deleteTableFirst When true, delete the table before inserting the new data. This is invoked during swipe
+     * refresh.
+     */
     private fun fetchRepos(deleteTableFirst: Boolean = false) {
         fetchJob?.cancel()
         fetchJob = launch(IO) {

@@ -55,6 +55,10 @@ internal class ContributorsActivityViewModel(application: Application) : ScopedA
 
     fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
 
+    /**
+     * @param deleteTableFirst When true, clear the user and contributor table before inserting new items. This is used
+     * by swipe refresh action.
+     */
     private fun fetchContributors(deleteTableFirst: Boolean = false) {
         fetchJob?.cancel()
         fetchJob = launch(IO) {

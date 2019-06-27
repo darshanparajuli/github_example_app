@@ -15,6 +15,11 @@ import com.dp.githubexample.activity.contributors.ContributorsActivity
 import com.dp.githubexample.common.viewmodel.LoadStatus
 import com.dp.githubexample.util.toast
 
+/**
+ * Main page.
+ *
+ * Shows the top github repos.
+ */
 class MainActivity : BaseActivityWithToolbar() {
 
     private lateinit var viewModel: MainActivityViewModel
@@ -47,6 +52,9 @@ class MainActivity : BaseActivityWithToolbar() {
         }
     }
 
+    /**
+     * Handler for recycler view item clicks.
+     */
     private fun itemClickHandler(v: View) {
         val pos = linearLayoutManager.getPosition(v)
         // Make sure pos is valid
